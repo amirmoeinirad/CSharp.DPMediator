@@ -1,1 +1,1 @@
-# DP Mediator
+# Mediator Design Pattern
