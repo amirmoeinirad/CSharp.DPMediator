@@ -1,13 +1,12 @@
 ﻿// Amir Moeini Rad
-// Dec 2, 2025
+// Dec 2025
 
 // Main Concept: The Mediator Pattern in C#
 
 // In this pattern, a mediator object encapsulates how a set of objects interact.
-// This promotes loose coupling by keeping objects from referring to each other explicitly,
-// and it lets you vary their interaction independently.
+// This promotes loose coupling by keeping objects from referring to each other explicitly.
 
-namespace DPMediator
+namespace MediatorDP
 {
     // Mediator interface
     public interface IChatMediator
@@ -42,6 +41,8 @@ namespace DPMediator
 
         public void Send(string message)
         {
+            Console.WriteLine("In User object...");
+            Console.WriteLine("Sending a message via a mediator...");
             _mediator.Send(message, this);
         }
     }
