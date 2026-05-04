@@ -12,20 +12,30 @@ namespace MediatorDP
     public interface IChatMediator
     {
         void Send(string message, User user);
+        void Register(User user);
     }
-
-    ///////////////////////////////////////////
+    
 
     // Concrete mediator
     public class ChatRoom : IChatMediator
     {
-        public void Send(string message, User user)
+        private readonly List<User> _users = [];
+
+        public void Register(User user)
         {
-            Console.WriteLine($"{user.Name}: {message}");
+            _users.Add(user);
+        }
+        
+        public void Send(string message, User sender)
+        {
+            foreach (var user in _users)
+            {
+                if (user != sender)
+                    user.Receive(message);
+            }
         }
     }
-
-    ///////////////////////////////////////////
+    
 
     // Colleague
     public class User
@@ -40,14 +50,17 @@ namespace MediatorDP
         }
 
         public void Send(string message)
-        {
-            Console.WriteLine("In User object...");
-            Console.WriteLine("Sending a message via a mediator...");
+        {            
+            Console.WriteLine($"{Name} sends: {message}");
             _mediator.Send(message, this);
         }
-    }
 
-    ///////////////////////////////////////////
+        public void Receive(string message)
+        {
+            Console.WriteLine($"{Name} receives: {message}");
+        }
+    }
+    
 
     internal class Program
     {
@@ -58,9 +71,15 @@ namespace MediatorDP
             Console.WriteLine("--------------------------------------\n");
 
             var chat = new ChatRoom();
+            var user1 = new User("Amir", chat);
+            var user2 = new User("Arman", chat);
+            var user3 = new User("Elham", chat);
 
-            var user = new User("Amir", chat);
-            user.Send("Hello from the Mediator pattern!");
+            chat.Register(user1);
+            chat.Register(user2);
+            chat.Register(user3);
+
+            user1.Send("Hello from the Mediator pattern!");
 
             Console.WriteLine("\nDone.");
         }
