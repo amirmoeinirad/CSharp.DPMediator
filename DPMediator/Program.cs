@@ -1,7 +1,7 @@
 ﻿// Amir Moeini Rad
 // Dec 2025
 
-// Main Concept: The Mediator Pattern in C#
+// The Mediator Design Pattern.
 
 // In this pattern, a mediator object encapsulates how a set of objects interact.
 // This promotes loose coupling by keeping objects from referring to each other explicitly.
@@ -79,7 +79,7 @@ namespace MediatorDP
             chat.Register(user2);
             chat.Register(user3);
 
-            user1.Send("Hello from the Mediator pattern!");
+            user1.Send($"Hello from {user1.Name}!");
 
             Console.WriteLine("\nDone.");
         }
